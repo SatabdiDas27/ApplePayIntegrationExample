@@ -18,6 +18,7 @@ class SwagBuyViewController: UIViewController {
     
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa,PKPaymentNetwork.discover]
     let ApplePaySwagMerchantID = "merchant.com.Infosys.ApplePaySwagV"
+    let request =  PKPaymentRequest()
     
     var swag: SwagItem! {
         didSet {
@@ -38,6 +39,24 @@ class SwagBuyViewController: UIViewController {
         self.swagTitleLabel.text = swag.description
     }
     
+    func createShippingAddressFromRef(address: PKContact) -> Address {
+        var shippingAddress: Address = Address()
+        
+        shippingAddress.FirstName = address.name?.givenName
+        shippingAddress.LastName = address.name?.familyName
+        let postalAddress = address.postalAddress
+        
+        shippingAddress.Street = postalAddress?.street
+        shippingAddress.City = postalAddress?.city
+        shippingAddress.Zip = postalAddress?.postalCode
+        shippingAddress.State = postalAddress?.state
+        print(shippingAddress)
+        
+        return shippingAddress
+        
+      
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
@@ -53,16 +72,31 @@ class SwagBuyViewController: UIViewController {
     
     @IBAction func purchase(sender: UIButton) {
         // TODO: - Fill in implementation
-        let request =  PKPaymentRequest()
+        
         request.merchantIdentifier = ApplePaySwagMerchantID
         request.supportedNetworks = SupportedPaymentNetworks
         request.merchantCapabilities = .capability3DS
         request.countryCode = "US"
         request.currencyCode = "USD"
-        request.paymentSummaryItems = [
-            PKPaymentSummaryItem(label: swag.title, amount: swag.priceAmountApplePay),
-            PKPaymentSummaryItem(label: "Infosys-Apple", amount: swag.priceAmountApplePay)
-        ]
+        var summaryItems = [PKPaymentSummaryItem]()
+        summaryItems.append(PKPaymentSummaryItem(label: swag.title, amount: swag.priceAmountApplePay))
+        
+        if (swag.type == "Delivered") {
+            summaryItems.append(PKPaymentSummaryItem(label: "Shipping", amount: swag.shippingPrice))
+        }
+        
+        summaryItems.append(PKPaymentSummaryItem(label: "SAT-Inc", amount: swag.totalPrice))
+        request.paymentSummaryItems = summaryItems
+        
+        switch swag.type {
+            case "Delivered":
+            request.requiredShippingContactFields = [PKContactField.postalAddress,PKContactField.phoneNumber]
+            case "Electronic":
+            request.requiredShippingContactFields = [PKContactField.emailAddress]
+            default:
+             break
+        }
+        
         if let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request){
             
             self.applePayButton.isHidden = false
@@ -75,9 +109,29 @@ class SwagBuyViewController: UIViewController {
 }
 
 extension SwagBuyViewController:PKPaymentAuthorizationViewControllerDelegate {
-    private func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController!, didAuthorizePayment payment: PKPayment!, completion: ((PKPaymentAuthorizationStatus) -> Void)!) {
-        completion(PKPaymentAuthorizationStatus.success)
+    internal func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
+                                                    didAuthorizePayment payment: PKPayment,
+                                                    handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        completion(PKPaymentAuthorizationResult(status: PKPaymentAuthorizationStatus.success, errors: nil))
     }
+    
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
+                                            didSelectShippingContact contact: PKContact,
+                                            completion: @escaping (PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void) {
+        
+        let shippingAddress = createShippingAddressFromRef(address: contact)
+        
+        switch (shippingAddress.State, shippingAddress.City, shippingAddress.Zip) {
+        case (.some(let state), .some(let city), .some(let zip)):
+            completion(PKPaymentAuthorizationStatus.success, [], [])
+        default:
+           // let shippingInvalidZip = PKPaymentRequest.paymentShippingAddressInvalidError(withKey: CNPostalAddressPostalCodeKey,localizedDescription: "Invalid ZIP code")
+            //let shippingInvalidStreet = PKPaymentRequest.paymentShippingAddressInvalidError(withKey: CNPostalAddressStreetKey,localizedDescription: "Invalid street name")
+            completion(PKPaymentAuthorizationStatus.failure, [], [])
+        }
+    }
+
+   
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         controller.dismiss(animated: true, completion: nil)

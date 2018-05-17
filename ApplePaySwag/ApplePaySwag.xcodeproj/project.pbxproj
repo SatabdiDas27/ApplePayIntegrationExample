@@ -20,6 +20,7 @@
 		10E1ECBE20ACDF1F00B92A1F /* StoryboardSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1ECBD20ACDF1F00B92A1F /* StoryboardSupport.swift */; };
 		10E1ECC020ACDFD900B92A1F /* SwagCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1ECBF20ACDFD900B92A1F /* SwagCellTableViewCell.swift */; };
 		10E1ECC220ACE61300B92A1F /* SwagBuyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1ECC120ACE61300B92A1F /* SwagBuyViewController.swift */; };
+		10E1ECC420AD111E00B92A1F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1ECC320AD111E00B92A1F /* Address.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		10E1ECBD20ACDF1F00B92A1F /* StoryboardSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardSupport.swift; sourceTree = "<group>"; };
 		10E1ECBF20ACDFD900B92A1F /* SwagCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwagCellTableViewCell.swift; sourceTree = "<group>"; };
 		10E1ECC120ACE61300B92A1F /* SwagBuyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwagBuyViewController.swift; sourceTree = "<group>"; };
+		10E1ECC320AD111E00B92A1F /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				10E1ECB820ACD8A600B92A1F /* SwagReaderStore.swift */,
 				10E1ECBA20ACD8CA00B92A1F /* SwagItem.swift */,
 				10E1ECBF20ACDFD900B92A1F /* SwagCellTableViewCell.swift */,
+				10E1ECC320AD111E00B92A1F /* Address.swift */,
 			);
 			path = ApplePaySwag;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				10E1ECBB20ACD8CA00B92A1F /* SwagItem.swift in Sources */,
 				10E1ECC220ACE61300B92A1F /* SwagBuyViewController.swift in Sources */,
 				10E1ECB920ACD8A600B92A1F /* SwagReaderStore.swift in Sources */,
+				10E1ECC420AD111E00B92A1F /* Address.swift in Sources */,
 				10E1ECC020ACDFD900B92A1F /* SwagCellTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

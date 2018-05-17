@@ -31,6 +31,7 @@ struct SwagItem: Decodable {
     let image: UIImage
     let title: String
     let price: String
+    let shippingPrice: NSDecimalNumber = NSDecimalNumber(string: "5.0")
     
     var priceAmountApplePay : NSDecimalNumber {
         let number = NSDecimalNumber(string: price)
@@ -40,6 +41,13 @@ struct SwagItem: Decodable {
         let finalString = numberFormatter.string(from: number)
         
         return NSDecimalNumber(string: finalString)
+    }
+    
+    var totalPrice : NSDecimalNumber {
+        if type == "Delivered" {
+            return priceAmountApplePay.adding(shippingPrice)
+        }
+        return priceAmountApplePay
     }
     
     enum CodingKeys: String, CodingKey {
