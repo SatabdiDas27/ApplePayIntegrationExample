@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>image</key>
+		<string>rw-t-shirt</string>
+		<key>title</key>
+		<string>T-Shirt</string>
+		<key>price</key>
+		<string>14.99</string>
+		<key>type</key>
+		<string>Delivered</string>
+		<key>description</key>
+		<string>Sport a stylish black t-shirt with a colorful mosaic iPhone design!</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>RW-Sticker</string>
+		<key>title</key>
+		<string>Sticker</string>
+		<key>price</key>
+		<string>2.99</string>
+		<key>type</key>
+		<string>Delivered</string>
+		<key>description</key>
+		<string>A really cool sticker!</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>RW_button_pack</string>
+		<key>title</key>
+		<string>Button Pack</string>
+		<key>price</key>
+		<string>9.99</string>
+		<key>type</key>
+		<string>Delivered</string>
+		<key>description</key>
+		<string>A pack of Ray Wenderlich buttons!.</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>iOSApprentice</string>
+		<key>title</key>
+		<string>iOS Apprentice</string>
+		<key>price</key>
+		<string>54.00</string>
+		<key>type</key>
+		<string>Electronic</string>
+		<key>description</key>
+		<string>The iOS Apprentice is a series of epic-length tutorials for beginners where you’ll learn how to build 4 complete apps from scratch.</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>iGT</string>
+		<key>title</key>
+		<string>iOS Games by Tutorials</string>
+		<key>price</key>
+		<string>54.00</string>
+		<key>type</key>
+		<string>Electronic</string>
+		<key>description</key>
+		<string>This book is for beginner to advanced iOS developers. Whether you are a complete beginner to making iOS games, or an advanced iOS developer looking to learn about Sprite Kit, you will learn a lot from this book!</string>
+	</dict>
+</array>
+</plist>
